@@ -4,7 +4,32 @@
     "2": ["The Compass Pointed to the Darkness", "Capital of the Unreturned"]
   },
   "Attack on Titan": {
-    "1": ["To You, in 2000 Years", "That Day", "A Dim Light Amid Despair"],
-    "2": ["Beast Titan", "I'm Home"]
+    "Season 1": {
+      "Episode 1": "To You, in 2000 Years: The Fall of Shiganshina, Part 1",
+      "Episode 2": "That Day: The Fall of Shiganshina, Part 2",
+      "Episode 3": "A Dim Light Amid Despair: Humanity's Comeback, Part 1",
+      "Episode 4": "The Night of the Closing Ceremony: Humanity's Comeback, Part 2",
+      "Episode 5": "First Battle: The Struggle for Trost, Part 1",
+      "Episode 6": "The World the Girl Saw: The Struggle for Trost, Part 2",
+      "Episode 7": "Small Blade: The Struggle for Trost, Part 3",
+      "Episode 8": "I Can Hear His Heartbeat: The Struggle for Trost, Part 4",
+      "Episode 9": "Whereabouts of His Left Arm: The Struggle for Trost, Part 5",
+      "Episode 10": "Response: The Struggle for Trost, Part 6",
+      "Episode 11": "Idol: The Struggle for Trost, Part 7",
+      "Episode 12": "Wound: The Struggle for Trost, Part 8",
+      "Episode 13": "Primal Desire: The Struggle for Trost, Part 9",
+      "Episode 14": "Can't Look into His Eyes Yet: Eve of the Counterattack, Part 1",
+      "Episode 15": "Special Operations Squad: Eve of the Counterattack, Part 2",
+      "Episode 16": "What Needs to be Done Now: Eve of the Counterattack, Part 3",
+      "Episode 17": "Female Titan: The 57th Exterior Scouting Mission, Part 1",
+      "Episode 18": "Forest of Giant Trees: The 57th Exterior Scouting Mission, Part 2",
+      "Episode 19": "Bite: The 57th Exterior Scouting Mission, Part 3",
+      "Episode 20": "Erwin Smith: The 57th Exterior Scouting Mission, Part 4",
+      "Episode 21": "Crushing Blow: The 57th Exterior Scouting Mission, Part 5",
+      "Episode 22": "The Defeated: The 57th Exterior Scouting Mission, Part 6",
+      "Episode 23": "Smile: Assault on Stohess, Part 1",
+      "Episode 24": "Mercy: Assault on Stohess, Part 2",
+      "Episode 25": "Wall: Assault on Stohess, Part 3"
+    }
   }
 }
