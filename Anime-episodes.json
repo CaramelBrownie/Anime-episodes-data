@@ -98,6 +98,34 @@
       "Episode 30": "The last chapters"
     }
   },
+"Akame ga Kill": {
+  "Season 1": {
+    "Episode 1": "Kill the darkness",
+    "Episode 2": "Kill the authority",
+    "Episode 3": "Kill your cares",
+    "Episode 4": "Kill the imperial arms",
+    "Episode 5": "Kill the dream",
+    "Episode 6": "Kill the temptation",
+    "Episode 7": "Kill the three",
+    "Episode 8": "Kill the traitor",
+    "Episode 9": "Kill the curse",
+    "Episode 10": "Kill the annoying one",
+    "Episode 11": "Kill the mad scientist",
+    "Episode 12": "Kill the new comers",
+    "Episode 13": "Kill the nobles",
+    "Episode 14": "Kill the giant danger beasts",
+    "Episode 15": "Kill the religion",
+    "Episode 16": "Kill the puppet",
+    "Episode 17": "Kill the curse two",
+    "Episode 18": "Kill the sister",
+    "Episode 19": "Kill the despair",
+    "Episode 20": "Kill the carnage",
+    "Episode 21": "Kill the fate",
+    "Episode 22": "Kill the emperor",
+    "Episode 23": "Kill the justice",
+    "Episode 24": "Akame vs Esdeath"
+  }
+},
   "Made in Abyss": {
     "Season 1": {
       "Episode 1": "The city of the great pit",
@@ -176,5 +204,63 @@
       "Episode 12": "Dreams and reality",
       "Episode 13": "Path to tomorrow"
     }
+  },
+"Tokyo Ghoul": {
+  "Season 1": {
+    "Episode 1": "Tragedy",
+    "Episode 2": "Incubation",
+    "Episode 3": "Dove",
+    "Episode 4": "Feeding",
+    "Episode 5": "Scar",
+    "Episode 6": "Cloudburst",
+    "Episode 7": "Captivity",
+    "Episode 8": "Circular",
+    "Episode 9": "Birdcage",
+    "Episode 10": "Aogiri",
+    "Episode 11": "High spirits",
+    "Episode 12": "Ghoul"
+  },
+"Season 2": {
+    "Episode 1": "New surge",
+    "Episode 2": "Dancing flowers",
+    "Episode 3": "Hangman",
+    "Episode 4": "Deeper layers",
+    "Episode 5": "Rift",
+    "Episode 6": "Thousand paths",
+    "Episode 7": "Captive",
+    "Episode 8": "Old wounds",
+    "Episode 9": "City in waiting",
+    "Episode 10": "Last rain",
+    "Episode 11": "Deluge of despair",
+    "Episode 12": "Ken"
+  },
+"Season 3": {
+    "Episode 1": "Start",
+    "Episode 2": "Fragment",
+    "Episode 3": "Fresh",
+    "Episode 4": "Main reason",
+    "Episode 5": "Pressing",
+    "Episode 6": "Turn",
+    "Episode 7": "Mind",
+    "Episode 8": "Become",
+    "Episode 9": "Proof",
+    "Episode 10": "Think",
+    "Episode 11": "Union",
+    "Episode 12": "Nightfall"
+  },
+"Season 4": {
+    "Episode 1": "Place",
+    "Episode 2": "Volition",
+    "Episode 3": "Memories",
+    "Episode 4": "Intersection",
+    "Episode 5": "Movements",
+    "Episode 6": "Face",
+    "Episode 7": "Proof two",
+    "Episode 8": "Old friends",
+    "Episode 9": "Mourning",
+    "Episode 10": "Call",
+    "Episode 11": "Final act",
+    "Episode 12": "Epilogue"
   }
+}
 }
