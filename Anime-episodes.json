@@ -126,7 +126,7 @@
       "Episode 24": "Parasitic beasts"
     }
   },
-  "Hell's Paradise": {
+  "Hells Paradise": {
     "Season 1": {
       "Episode 1": "The death row convict and the executioner",
       "Episode 2": "Screening and choosing",
@@ -199,6 +199,50 @@
     "Episode 46": "Call",
     "Episode 47": "Final act",
     "Episode 48": "Epilogue"
+  }
+},
+"Solo Leveling": {
+  "Season 1": {
+    "Episode 1": "The strongest hunter",
+    "Episode 2": "Awakening",
+    "Episode 3": "Double dungeon",
+    "Episode 4": "The beginning of change",
+    "Episode 5": "The test",
+    "Episode 6": "Contract",
+    "Episode 7": "The new power",
+    "Episode 8": "Hunter's rule",
+    "Episode 9": "Secret dungeon",
+    "Episode 10": "Reawakening",
+    "Episode 11": "The boss",
+    "Episode 12": "Solo leveling"
+  },
+  "Season 2": {
+    "Episode 13": "New challenges",
+    "Episode 14": "Power surge",
+    "Episode 15": "Unseen threat",
+    "Episode 16": "Trial by fire",
+    "Episode 17": "Ally or enemy",
+    "Episode 18": "Hidden strength",
+    "Episode 19": "The dungeon's secret",
+    "Episode 20": "Awakening again",
+    "Episode 21": "Stronger than before",
+    "Episode 22": "Betrayal",
+    "Episode 23": "Sacrifice",
+    "Episode 24": "The awakening king"
+  },
+  "Season 3": {
+    "Episode 25": "Return",
+    "Episode 26": "Breaking limits",
+    "Episode 27": "The final test",
+    "Episode 28": "New alliances",
+    "Episode 29": "Clash of powers",
+    "Episode 30": "Darkness rising",
+    "Episode 31": "Ultimate battle",
+    "Episode 32": "Sacred vow",
+    "Episode 33": "Last stand",
+    "Episode 34": "Reign begins",
+    "Episode 35": "Legacy",
+    "Episode 36": "Endgame"
   }
 }
 }
