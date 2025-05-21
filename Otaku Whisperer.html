@@ -143,20 +143,22 @@
 
   <input type="text" id="episodeTitle" placeholder="Episode Title" readonly>
 
-  <button onclick="generateLink()"><i class="fas fa-link"></i> Generate Link</button>
+  <button onclick="openLink()" id="playButton" disabled>
+    <i class="fas fa-play"></i> Open/Play
+  </button>
 
   <div id="output"></div>
 
   <div class="button-group">
     <button onclick="copyLink()"><i class="fas fa-copy"></i> Copy</button>
     <button onclick="shareLink()"><i class="fas fa-share-alt"></i> Share</button>
-    <button onclick="openLink()"><i class="fas fa-play"></i> Open/Play</button>
   </div>
-  
-  <footer>Made with <span style="color: #ff66cc;">♡</span> by Honesty</footer>
 
+  <footer>Made with <span style="color: #ff66cc;">♡</span> by Honesty</footer>
+  
   <script>
-let finalLink = "";
+  
+  let finalLink = "";
 let animeData = {};
 
 const rawUrl = "https://raw.githubusercontent.com/CaramelBrownie/Anime-episodes-data/main/Anime-episodes.json";
@@ -195,6 +197,7 @@ function updateSeasonSelect(anime) {
   titleField.value = '';
   seasonSelect.disabled = true;
   episodeSelect.disabled = true;
+  document.getElementById("playButton").disabled = true;
 
   if (!anime || !animeData[anime]) return;
 
@@ -221,6 +224,7 @@ function updateEpisodeSelect(anime, seasonNumber) {
   episodeSelect.innerHTML = '<option value="">-- Select Episode --</option>';
   titleField.value = '';
   episodeSelect.disabled = true;
+  document.getElementById("playButton").disabled = true;
 
   const seasonKey = `Season ${seasonNumber}`;
   if (!animeData[anime][seasonKey]) return;
@@ -240,7 +244,51 @@ function updateEpisodeSelect(anime, seasonNumber) {
     const episodeKey = `Episode ${selectedEpisodeNumber}`;
     const title = animeData[anime][seasonKey][episodeKey] || "";
     titleField.value = title;
+
+    generateLink(); // Automatically generate the link
   });
+}
+
+function generateLink() {
+  const anime = document.getElementById("animeSelect").value;
+  const season = document.getElementById("seasonSelect").value;
+  const episode = document.getElementById("episodeSelect").value;
+  const title = document.getElementById("episodeTitle").value;
+
+  if (!anime || !season || !episode || !title) return;
+
+  const formattedAnime = capitalizeAllWords(anime);
+  const formattedTitle = toTitleCase(title);
+  const firstLetter = formattedAnime[0].toUpperCase();
+  const encodedAnime = encodeURIComponent(formattedAnime);
+  const fullTitle = `${String(episode).padStart(2, '0')} ${formattedTitle}`;
+  const encodedTitle = encodeForURLPreserveComma(fullTitle);
+
+  finalLink = `https://eng.cartoonsarea.cc/USER-DATA/Cartoonsarea/English/${firstLetter}/${encodedAnime}/Season%20${season}/Episode%20${episode}//${encodedTitle}.mp4`;
+
+  document.getElementById("output").textContent = finalLink;
+  document.getElementById("playButton").disabled = false;
+}
+
+function openLink() {
+  if (!finalLink) return alert("Select a valid episode first!");
+  window.open(finalLink, "_blank");
+}
+
+function copyLink() {
+  if (!finalLink) return alert("Generate the link first!");
+  navigator.clipboard.writeText(finalLink).then(() => {
+    alert("Link copied to clipboard!");
+  });
+}
+
+function shareLink() {
+  if (!finalLink) return alert("Generate the link first!");
+  if (navigator.share) {
+    navigator.share({ title: "Watch Anime Episode", url: finalLink }).catch(console.error);
+  } else {
+    alert("Web Share API not supported.");
+  }
 }
 
 function toTitleCase(str) {
@@ -269,54 +317,10 @@ function capitalizeAllWords(str) {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
-  
+
 function encodeForURLPreserveComma(str) {
   return encodeURIComponent(str).replace(/%2C/g, ",");
 }
-
-function generateLink() {
-  const anime = document.getElementById("animeSelect").value;
-  const season = document.getElementById("seasonSelect").value;
-  const episode = document.getElementById("episodeSelect").value;
-  const title = document.getElementById("episodeTitle").value;
-
-  if (!anime || !season || !episode || !title) {
-    alert("Please complete all selections.");
-    return;
-  }
-
-  const formattedAnime = capitalizeAllWords(anime);
-  const formattedTitle = toTitleCase(title);
-  const firstLetter = formattedAnime[0].toUpperCase();
-  const encodedAnime = encodeURIComponent(formattedAnime);
-  const fullTitle = `${String(episode).padStart(2, '0')} ${formattedTitle}`;
-  const encodedTitle = encodeForURLPreserveComma(fullTitle);
-
-  finalLink = `https://eng.cartoonsarea.cc/USER-DATA/Cartoonsarea/English/${firstLetter}/${encodedAnime}/Season%20${season}/Episode%20${episode}//${encodedTitle}.mp4`;
-
-  document.getElementById("output").textContent = finalLink;
-}
-
-function copyLink() {
-  if (!finalLink) return alert("Generate the link first!");
-  navigator.clipboard.writeText(finalLink).then(() => {
-    alert("Link copied to clipboard!");
-  });
-}
-
-function shareLink() {
-  if (!finalLink) return alert("Generate the link first!");
-  if (navigator.share) {
-    navigator.share({ title: "Watch Anime Episode", url: finalLink }).catch(console.error);
-  } else {
-    alert("Web Share API not supported.");
-  }
-}
-
-function openLink() {
-  if (!finalLink) return alert("Generate the link first!");
-  window.open(finalLink, "_blank");
-}
-</script>
+  </script>
 </body>
 </html>
