@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Otaku Whisperer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #fff;
+      font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      padding: 2rem;
+      gap: 1rem;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      color: #ffccff;
+      text-shadow: 0 0 10px #ff66cc;
+    }
+
+    label {
+      align-self: flex-start;
+      max-width: 600px;
+      width: 100%;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    select, input {
+      width: 100%;
+      max-width: 600px;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 10px;
+      background: #2a2a40;
+      color: #fff;
+      border: 1px solid #555;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #ff66cc;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff66cc;
+      border: none;
+      border-radius: 10px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: 0.3s ease;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    button:hover {
+      background: #ff3399;
+      transform: scale(1.03);
+    }
+
+    #output {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      border: 1px solid #fff2;
+      word-wrap: break-word;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .button-group button {
+      flex: 1 1 calc(33.333% - 1rem);
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      pointer-events: none;
+      background: url('https://i.imgur.com/Uv4JjUU.png');
+      opacity: 0.05;
+      animation: sparkle 15s linear infinite;
+    }
+
+    @keyframes sparkle {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+  
+  footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #ffccff;
+  text-shadow: 0 0 5px #ff66cc;
+}
+  </style>
+</head>
+<body>
+  <h2>Otaku Whisperer: Anime Link Generator</h2>
+
+  <label for="animeSelect">Anime Title:</label>
+  <select id="animeSelect">
+    <option value="">-- Select Anime --</option>
+  </select>
+
+  <label for="seasonSelect">Season:</label>
+  <select id="seasonSelect" disabled>
+    <option value="">-- Select Season --</option>
+  </select>
+
+  <label for="episodeSelect">Episode:</label>
+  <select id="episodeSelect" disabled>
+    <option value="">-- Select Episode --</option>
+  </select>
+
+  <input type="text" id="episodeTitle" placeholder="Episode Title" readonly>
+
+  <button onclick="generateLink()"><i class="fas fa-link"></i> Generate Link</button>
+
+  <div id="output"></div>
+
+  <div class="button-group">
+    <button onclick="copyLink()"><i class="fas fa-copy"></i> Copy</button>
+    <button onclick="shareLink()"><i class="fas fa-share-alt"></i> Share</button>
+    <button onclick="openLink()"><i class="fas fa-play"></i> Open/Play</button>
+  </div>
+  
+  <footer>Made with <span style="color: #ff66cc;">♡</span> by Honesty</footer>
+
+  <script>
+let finalLink = "";
+let animeData = {};
+
+const rawUrl = "https://raw.githubusercontent.com/CaramelBrownie/Anime-episodes-data/main/Anime-episodes.json";
+const proxyUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawUrl);
+
+fetch(proxyUrl)
+  .then(response => response.json())
+  .then(data => {
+    animeData = data;
+    populateAnimeSelect();
+  })
+  .catch(error => console.error("Failed to load anime data:", error));
+
+function populateAnimeSelect() {
+  const animeSelect = document.getElementById("animeSelect");
+  Object.keys(animeData).sort().forEach(anime => {
+    const option = document.createElement("option");
+    option.value = anime;
+    option.textContent = anime;
+    animeSelect.appendChild(option);
+  });
+
+  animeSelect.addEventListener("change", () => {
+    const selectedAnime = animeSelect.value;
+    updateSeasonSelect(selectedAnime);
+  });
+}
+
+function updateSeasonSelect(anime) {
+  const seasonSelect = document.getElementById("seasonSelect");
+  const episodeSelect = document.getElementById("episodeSelect");
+  const titleField = document.getElementById("episodeTitle");
+
+  seasonSelect.innerHTML = '<option value="">-- Select Season --</option>';
+  episodeSelect.innerHTML = '<option value="">-- Select Episode --</option>';
+  titleField.value = '';
+  seasonSelect.disabled = true;
+  episodeSelect.disabled = true;
+
+  if (!anime || !animeData[anime]) return;
+
+  Object.keys(animeData[anime]).forEach(seasonKey => {
+    const seasonNumber = seasonKey.replace("Season ", "");
+    const option = document.createElement("option");
+    option.value = seasonNumber;
+    option.textContent = seasonKey;
+    seasonSelect.appendChild(option);
+  });
+
+  seasonSelect.disabled = false;
+
+  seasonSelect.addEventListener("change", () => {
+    const selectedSeasonNumber = seasonSelect.value;
+    updateEpisodeSelect(anime, selectedSeasonNumber);
+  });
+}
+
+function updateEpisodeSelect(anime, seasonNumber) {
+  const episodeSelect = document.getElementById("episodeSelect");
+  const titleField = document.getElementById("episodeTitle");
+
+  episodeSelect.innerHTML = '<option value="">-- Select Episode --</option>';
+  titleField.value = '';
+  episodeSelect.disabled = true;
+
+  const seasonKey = `Season ${seasonNumber}`;
+  if (!animeData[anime][seasonKey]) return;
+
+  Object.keys(animeData[anime][seasonKey]).forEach(episodeKey => {
+    const episodeNumber = episodeKey.replace("Episode ", "");
+    const option = document.createElement("option");
+    option.value = episodeNumber;
+    option.textContent = episodeKey;
+    episodeSelect.appendChild(option);
+  });
+
+  episodeSelect.disabled = false;
+
+  episodeSelect.addEventListener("change", () => {
+    const selectedEpisodeNumber = episodeSelect.value;
+    const episodeKey = `Episode ${selectedEpisodeNumber}`;
+    const title = animeData[anime][seasonKey][episodeKey] || "";
+    titleField.value = title;
+  });
+}
+
+function toTitleCase(str) {
+  const functionWords = new Set([
+    "a", "an", "and", "as", "at", "but", "by", "for", "in", "nor", "of",
+    "on", "or", "so", "the", "to", "up", "yet", "with", "from", "into", "over"
+  ]);
+  const words = str.trim().split(/\s+/);
+  if (words.length === 0) return "";
+  return words
+    .map((word, index) => {
+      const lower = word.toLowerCase();
+      if (index === 0 || !functionWords.has(lower)) {
+        return lower.charAt(0).toUpperCase() + lower.slice(1);
+      } else {
+        return lower;
+      }
+    })
+    .join(" ");
+}
+
+function capitalizeAllWords(str) {
+  return str
+    .trim()
+    .split(/\s+/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+  
+function encodeForURLPreserveComma(str) {
+  return encodeURIComponent(str).replace(/%2C/g, ",");
+}
+
+function generateLink() {
+  const anime = document.getElementById("animeSelect").value;
+  const season = document.getElementById("seasonSelect").value;
+  const episode = document.getElementById("episodeSelect").value;
+  const title = document.getElementById("episodeTitle").value;
+
+  if (!anime || !season || !episode || !title) {
+    alert("Please complete all selections.");
+    return;
+  }
+
+  const formattedAnime = capitalizeAllWords(anime);
+  const formattedTitle = toTitleCase(title);
+  const firstLetter = formattedAnime[0].toUpperCase();
+  const encodedAnime = encodeURIComponent(formattedAnime);
+  const fullTitle = `${String(episode).padStart(2, '0')} ${formattedTitle}`;
+  const encodedTitle = encodeForURLPreserveComma(fullTitle);
+
+  finalLink = `https://eng.cartoonsarea.cc/USER-DATA/Cartoonsarea/English/${firstLetter}/${encodedAnime}/Season%20${season}/Episode%20${episode}//${encodedTitle}.mp4`;
+
+  document.getElementById("output").textContent = finalLink;
+}
+
+function copyLink() {
+  if (!finalLink) return alert("Generate the link first!");
+  navigator.clipboard.writeText(finalLink).then(() => {
+    alert("Link copied to clipboard!");
+  });
+}
+
+function shareLink() {
+  if (!finalLink) return alert("Generate the link first!");
+  if (navigator.share) {
+    navigator.share({ title: "Watch Anime Episode", url: finalLink }).catch(console.error);
+  } else {
+    alert("Web Share API not supported.");
+  }
+}
+
+function openLink() {
+  if (!finalLink) return alert("Generate the link first!");
+  window.open(finalLink, "_blank");
+}
+</script>
+</body>
+</html>
